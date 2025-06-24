@@ -32,7 +32,7 @@ Este proyecto utiliza una verificación automática que valida que has ingresado
 2. Rellena tus datos:
 
 ```
-STUDENT_NAME=Tu Nombre Completo
+STUDENT_NAME=Victoria Andrade
 STUDENT_EMAIL=tu.correo@institucion.edu.ec
 ```
 
