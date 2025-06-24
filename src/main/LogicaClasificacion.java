@@ -52,11 +52,18 @@ public class LogicaClasificacion {
                 if(pila.isEmpty()){ //si la pila esta vacia e ingresa un simbolo de cierre
                     return false; // retorna falso
                 }
-                
+
+                char cima = pila.pop();
+                //ver si no coincide con el tope
+                if(((cima == '}') && (cima != '{')) || 
+                ((cima == ']') && (cima != '[')) ||
+                ((cima == ')') && (cima != '('))){
+                    return false;
+                }
                 
             }
         }
-        return false;
+        return pila.isEmpty();
     }
 
     /**
