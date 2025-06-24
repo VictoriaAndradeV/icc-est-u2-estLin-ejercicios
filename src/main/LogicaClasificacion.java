@@ -16,17 +16,16 @@ public class LogicaClasificacion {
      */
     public String invertirCadena(String texto) {
         Stack<Character> pila = new Stack<>();
-        String textoInvertido = "";
-
-        for(int i = texto.length() - 1; i >= 0; i--){
+        // forma la pila normal
+        for (int i = 0; i < texto.length(); i++) {
             pila.push(texto.charAt(i));
         }
-
-        while(!pila.isEmpty()){
-            textoInvertido = textoInvertido + pila.pop();
+        // empieza a invertir
+        StringBuilder sb = new StringBuilder();
+        while (!pila.isEmpty()) {
+            sb.append(pila.pop());
         }
-
-        return textoInvertido;
+        return sb.toString();
     }
 
     /**
@@ -42,25 +41,20 @@ public class LogicaClasificacion {
      */
     public boolean validarSimbolos(String expresion) {
         Stack<Character> pila = new Stack<>();
-        for (int i = 0; i <= expresion.length(); i++){
-            char c = expresion.charAt(i); //vamos tomando caracter por caracter de la cadena ingresada
-
-            if((c == '{')|| (c == '[') || (c == '(')){
+        for (int i = 0; i < expresion.length(); i++) {
+            char c = expresion.charAt(i);
+            if (c == '{' || c == '[' || c == '(') {
                 pila.push(c);
-            } else if ((c == '}')|| (c == ']') || (c == ')')){
-                
-                if(pila.isEmpty()){ //si la pila esta vacia e ingresa un simbolo de cierre
-                    return false; // retorna falso
-                }
-
-                char cima = pila.pop();
-                //ver si no coincide con el tope
-                if(((cima == '}') && (cima != '{')) || 
-                ((cima == ']') && (cima != '[')) ||
-                ((cima == ')') && (cima != '('))){
+            } else if (c == '}' || c == ']' || c == ')') {
+                if (pila.isEmpty()) {//si ingresa simbolo cerrado y la pila esta vacia, entonces no esta ordenada
                     return false;
                 }
-                
+                char cima = pila.pop(); 
+                if ((c == '}' && cima != '{') || //verifica si en la cima de la pila, tiene un simbolo que cierre la expresion
+                    (c == ']' && cima != '[') ||
+                    (c == ')' && cima != '(')) {
+                    return false;
+                }
             }
         }
         return pila.isEmpty();
@@ -76,8 +70,26 @@ public class LogicaClasificacion {
      *         Salida: [1, 2, 3, 4]
      */
     public List<Integer> ordenarPila(Stack<Integer> pila) {
-        return new ArrayList<>();
+        Stack<Integer> aux = new Stack<>();
+        while (!pila.isEmpty()) {
+            int tmp = pila.pop();
+            while (!aux.isEmpty() && aux.peek() > tmp) {
+                pila.push(aux.pop());
+            }
+            aux.push(tmp);
+        }
+        // Construir lista en orden ascendente
+        List<Integer> resultado = new ArrayList<>();
+        // Volver a pasar de aux a pila para luego extraer en orden
+        while (!aux.isEmpty()) {
+            pila.push(aux.pop());
+        }
+        while (!pila.isEmpty()) {
+            resultado.add(pila.pop());
+        }
+        return resultado;
     }
+
 
     /**
      * Clasifica una lista de enteros separando pares e impares.
@@ -90,7 +102,19 @@ public class LogicaClasificacion {
      *         Salida: [2, 4, 6, 1, 3, 5]
      */
     public List<Integer> clasificarPorParidad(LinkedList<Integer> original) {
-
-        return new ArrayList<>();
+        List<Integer> resultado = new ArrayList<>();
+        // Agregar pares
+        for (int n : original) {
+            if (n % 2 == 0) {
+                resultado.add(n);
+            }
+        }
+        // Agregar impares
+        for (int n : original) {
+            if (n % 2 != 0) {
+                resultado.add(n);
+            }
+        }
+        return resultado;
     }
 }
