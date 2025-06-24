@@ -15,7 +15,18 @@ public class LogicaClasificacion {
      *         Salida: "odnuM aloH"
      */
     public String invertirCadena(String texto) {
-        return "";
+        Stack<Character> pila = new Stack<>();
+        String textoInvertido = "";
+
+        for(int i = texto.length() - 1; i >= 0; i--){
+            pila.push(texto.charAt(i));
+        }
+
+        while(!pila.isEmpty()){
+            textoInvertido = textoInvertido + pila.pop();
+        }
+
+        return textoInvertido;
     }
 
     /**
@@ -30,6 +41,21 @@ public class LogicaClasificacion {
      *         Salida: true
      */
     public boolean validarSimbolos(String expresion) {
+        Stack<Character> pila = new Stack<>();
+        for (int i = 0; i <= expresion.length(); i++){
+            char c = expresion.charAt(i); //vamos tomando caracter por caracter de la cadena ingresada
+
+            if((c == '{')|| (c == '[') || (c == '(')){
+                pila.push(c);
+            } else if ((c == '}')|| (c == ']') || (c == ')')){
+                
+                if(pila.isEmpty()){ //si la pila esta vacia e ingresa un simbolo de cierre
+                    return false; // retorna falso
+                }
+                
+                
+            }
+        }
         return false;
     }
 
@@ -43,7 +69,6 @@ public class LogicaClasificacion {
      *         Salida: [1, 2, 3, 4]
      */
     public List<Integer> ordenarPila(Stack<Integer> pila) {
-
         return new ArrayList<>();
     }
 
